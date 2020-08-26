@@ -14,17 +14,13 @@ export default class LatestMovieReviewsContainer extends React.Component {
     componentDidMount() {
         fetch(URL)
             .then(res => res.json())
-            .then(data => {console.log(data.results), this.setState({ reviews: data.results})})
-    }
-
-    renderReviews = () => {
-        this.state.reviews.map(review => <MovieReviews byline={review.byline}/>)
+            .then(data => {this.setState({ reviews: data.results})})
     }
 
     render() {
         return (
             <div className="latest-movie-reviews">
-                {this.renderReviews}
+                <MovieReviews reviews={this.state.reviews}/>
             </div>
         )    
     }

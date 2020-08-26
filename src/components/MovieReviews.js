@@ -1,9 +1,9 @@
 import React from "react"
 
-const MovieReviews = ({byline}) => {
+const MovieReviews = ({reviews}) => {
     return (
         <div className="review-list">
-            <div>{byline}</div>
+            {reviews.map(review => <ul className="review"><li>{review.byline}</li></ul>)}
         </div>
     )
 }
