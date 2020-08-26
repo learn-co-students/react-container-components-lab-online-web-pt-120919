@@ -4,7 +4,7 @@ import MovieReviews from './MovieReviews'
 
 const NYT_API_KEY = 'dGpQ5OmGP2SgfvZimlpCUoF4iOag9qzZ';
 const URL = 'https://api.nytimes.com/svc/movies/v2/reviews/search.json?'
-            + `api-key=${NYT_API_KEY}`;
+            + `api-key=${NYT_API_KEY}&query=`;
 
 export default class SearchableMovieReviewsContainer extends React.Component {
 
@@ -13,17 +13,23 @@ export default class SearchableMovieReviewsContainer extends React.Component {
         searchTerm: ""
     }
 
-    fetchData = (searchTerm) => {
-        fetch(URL + `&query=${searchTerm}`)
+    handleSubmit = (e) => {
+        e.preventDefault()
+        fetch(URL + `${this.state.searchTerm}`)
             .then(res => res.json())
-            .then(data => this.setState({ reviews: data }))
+            .then(data => this.setState({ reviews: data.results }))
     }
+
+    handleSearchInputChange = event =>
+        this.setState({ searchTerm: event.target.value });
 
     render() {
         return (
             <div className="searchable-movie-reviews">
-                <input type="test" value={this.state.searchTerm} name="searchTerm" onChange={e => this.setState({searchTerm: e.target.value})}/>
-                <input type="submit" onSubmit={this.fetchData(this.state.searchTerm)}/>
+                <form onSubmit={this.handleSubmit}>
+                    <input type="test" value={this.state.searchTerm} name="searchTerm" onChange={this.handleSearchInputChange}/>
+                    <input type="submit" />
+                </form>    
                 <MovieReviews reviews={this.state.reviews} />
             </div>
         )    
