@@ -2,27 +2,28 @@ import React, { Component } from "react";
 import "isomorphic-fetch";
 import MovieReviews from "./MovieReviews";
 
-const URL = "https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=";
+const URL =
+  "https://api.nytimes.com/svc/movies/v2/reviews/search.json?api-key=brnYM2seB1Q5VeeBtj665iZAmAynDYwy&query=";
 
 export default class SearchableMovieReviewsContainer extends Component {
   constructor() {
     super();
     this.state = {
-      query: "",
+      searchTerm: "",
       reviews: []
     };
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    fetch(URL + `${this.state.query}&api-key=brnYM2seB1Q5VeeBtj665iZAmAynDYwy`)
+    fetch(URL + `${this.state.searchTerm}`)
       .then(resp => resp.json())
       .then(reviewList => this.setState({ reviews: reviewList.results }));
   };
 
   onChange = e => {
     this.setState({
-      query: e.target.value
+      searchTerm: e.target.value
     });
   };
 
@@ -32,7 +33,7 @@ export default class SearchableMovieReviewsContainer extends Component {
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            value={this.state.query}
+            value={this.state.searchTerm}
             onChange={this.onChange}
           />
         </form>
