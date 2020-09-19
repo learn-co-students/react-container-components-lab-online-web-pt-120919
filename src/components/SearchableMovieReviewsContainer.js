@@ -9,7 +9,7 @@ const QUERY_URL = URL + '&query='
 
 
 // Code SearchableMovieReviewsContainer Here
-class SearchableMovieReviewsContainer extends React.Component {
+class SearchableMovieReviewsContainer extends Component {
 
     constructor() {
         super()
